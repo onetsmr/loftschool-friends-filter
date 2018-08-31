@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>ДругоФильтр</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+    <script src="http://vk.com/js/api/openapi.js" type="text/javascript"></script>
+    <script src="utils/array-extensions.js" type="text/javascript"></script>
+
+    <style>
+        .content {
+            display: block;
+            margin: 15px;
+        }
+
+        .row {
+            display: table-row;
+        }
+
+        .cell {
+            display: table-cell;
+            padding: 5px;
+        }
+    </style>
+
+</head>
+<body>
+    <div>
+        <div id="friendsForm">
+            <div id="header" class="content"><span>Выберите друзей</span><button>Закрыть</button></div>
+            <div class="row">
+                <div id="vkFriends" class="cell">
+                    <div>
+                        <span>Ваши друзья</span>
+                    </div>
+                    <div>
+                        <input type="text" id="vkFriendsSearch" placeholder="Начните вводить имя друга" onkeyup="friendsComponent.vkFriendsFilter()" />
+                    </div>
+                    <div id="vkFriendsList">
+                    </div>
+                </div>
+                <div id="lsFriends" class="cell">
+                    <div>
+                        <span>Друзья в списке</span>
+                    </div>
+                    <div>
+                        <input type="text" id="lsFriendsSearch" placeholder="Начните вводить имя друга" onkeyup="friendsComponent.lsFriendsFilter()" />
+                    </div>
+                    <div id="lsFriendsList">
+                    </div>
+                </div>
+            </div>
+            <div id="footer" class="content"><button type="button" onclick="friendsComponent.save()">Сохранить</button></div>
+        </div>
+    </div>
+
+    <script src="main.js" type="module">
+    </script>
+
+    <script type="text/x-handlebars-template" id="friendsTemplate">
+        {{#each data}}
+        <div id="{{id}}" draggable="true">
+            <img src="{{photo}}" class="img-circle">
+            <div>{{firstName}} {{lastName}}</div>
+            <a href="javascript:;" onclick="friendsComponent.{{@root.buttonClick}}({{id}})">{{@root.buttonIcon}}</a>
+        </div>
+        {{/each}}
+    </script>
+</body>
+</html>
